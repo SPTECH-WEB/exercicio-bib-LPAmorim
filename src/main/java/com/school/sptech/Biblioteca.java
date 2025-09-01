@@ -1,0 +1,91 @@
+package com.school.sptech;
+
+public class Biblioteca {
+    private String nome;
+    private Double multaDiaria;
+    private Integer qtdLivros;
+    private Boolean ativa;
+
+    public Biblioteca(String nome, Double multaDiaria){
+        this.nome = nome;
+        this.multaDiaria = multaDiaria;
+        qtdLivros = 0;
+        ativa = true;
+    }
+
+    public void registrarLivro(Integer quantidade){
+        if (quantidade != null && quantidade > 0 && ativa){
+            qtdLivros += quantidade;
+        }
+    }
+
+    public Integer emprestar(Integer quantidade){
+        if (ativa && quantidade != null &&
+                quantidade > 0 && quantidade <= qtdLivros){
+            qtdLivros -= quantidade;
+            return quantidade;
+        }else return null;
+    }
+
+    public Integer devolver(Integer quantidade){
+        if (ativa && quantidade != null && quantidade > 0){
+            qtdLivros += quantidade;
+            return quantidade;
+        }else {
+            return null;
+        }
+    }
+
+    public Integer desativar(){
+        if (ativa != false){
+            Integer qtdLivrosAnterior = qtdLivros;
+            ativa = false;
+            qtdLivros = 0;
+            return qtdLivrosAnterior;
+
+        }else return null;
+    }
+
+    public void transferir(Biblioteca destino, Integer quantidade){
+        if (destino != null
+                && ativa
+                && quantidade != null && quantidade > 0
+                && quantidade <= qtdLivros) {
+
+            qtdLivros -= quantidade;
+            destino.qtdLivros += quantidade;
+        }
+    }
+
+    public Boolean reajustarMulta(Double percentual){
+        if (percentual != null && percentual > 0){
+            multaDiaria *= (1 + percentual);
+            return true;
+
+        }else return false;
+    }
+
+    // Getters
+    public String getNome() {
+        return nome;
+    }
+
+    public Double getMultaDiaria() {
+        return multaDiaria;
+    }
+
+    public Integer getQtdLivros() {
+        return qtdLivros;
+    }
+
+    public Boolean getAtiva() {
+        return ativa;
+    }
+
+    // Setter
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+}
+
+
